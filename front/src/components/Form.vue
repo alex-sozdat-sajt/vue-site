@@ -16,6 +16,10 @@
     <textarea   class="input" v-model="sectionText" placeholder="Введите текст раздела"/>
     <hr/>
     <hr/>
+    <label>File
+        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+      </label>
+    <button v-on:click="submitFile()">Submit</button>
     
    
   <hr/>
@@ -69,7 +73,31 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                 });
+               },
+               handleFileUpload(){
+                this.file = this.$refs.file.files[0];
+                
+                console.log('this.$refs.file.files[0];', this.file)
+                },
+              submitFile(){
+                        
+                        let formData = new FormData();
+                        formData.append('file', this.file);
+                        axios.post( 'http://127.0.0.1:3000/singleFile',
+                    formData,
+                    {
+                        headers: {
+                        // "Content-Type" : "application/json" , 
+                        'Content-Type': 'multipart/form-data'
                         }
+                    }
+                    ).then(function(){
+                    console.log('SUCCESS!!');
+                    })
+                    .catch(function(){
+                    console.log('FAILURE!!');
+                    });
+                        }                
 
     }
 

@@ -13,7 +13,8 @@
    <p>{{articleText}}</p> 
    <h3>{{headlineThree}}</h3> 
    <p>{{sectionText}}</p> 
-   <img alt="Vue logo" src="http://localhost:3000/upload/1.jpg">
+   
+   <img  src="http://localhost:3000/upload/resized-7.jpg">
   <hr/>
 </template>
 

@@ -8,6 +8,7 @@ import multipart from '@fastify/multipart';
 import util from 'util';
 import { fileURLToPath } from 'url';
 import { pipeline } from 'stream';
+import sharp from 'sharp'
 
 const pump = util.promisify(pipeline)
 
@@ -55,42 +56,37 @@ fastify.get('/', async function handler (request, reply) {
   
   return { hello: 'world' }
 
-}) 
-fastify.get('/getFhotoFromDb', async function handler (request, reply) {
+});
 
-
-  try {
-    const data = fs.readFileSync('./upload/undefined.jpg', 'utf8');
-    console.log(data);
-    return data  
-  } catch (err) {
-    console.error(err);
-  }
-
-  console.log('test.txt', data); 
-
-
-  console.log('foto2', foto); 
-  reply.send({ hello: 'foto' }) 
- 
-
-}) 
 
 fastify.post('/singleFile', async function handler (request, reply) {
  
   const data = await request.file()
   console.log('data', data)
+  const filename = data.filename
+  const width = 300;
+   
   
+  // console.log('${path.resolve(./upload/)}', `${path.resolve('./upload/')}`)
+  // console.log('${path.resolve(./public/upload/)}', `${path.resolve('./public/upload/')}`)
   
-  console.log('${path.resolve(./upload/)}', `${path.resolve('./upload/')}`)
-  console.log('${path.resolve(./public/upload/)}', `${path.resolve('./public/upload/')}`)
+  await pump(data.file, fs.createWriteStream(`./public/upload/${filename}`))
+  resizeFile(filename, width)
+  //  function deleteFile(filename) {
+  //   fs.unlinkSync(path.resolve(`./public/upload/${filename}`));
+  // }
+   async function resizeFile(filename, width) {
+    await sharp(`./public/upload/${filename}`).resize(width).toFile(`./public/upload/resized-${filename}`);
+  
+    // deleteFile(filename); удаляет загруженный файл, выдает ошибку
+  
+    return `resized-${filename}`;
+  }
+  
+ 
 
-  await pump(data.file, fs.createWriteStream(`./upload/${data.filename}`))
-
-  
-  
-  
-    return { hello: 200 }
+  // await pump(data.file, fs.createWriteStream(`./public/upload/${data.filename}`))
+ return { hello: 200 }
 
 })                
 
