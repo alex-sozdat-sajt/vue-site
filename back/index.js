@@ -33,6 +33,9 @@ fastify.post('/form', function (request, reply) {
       articleText: request.body.articleText,
       headlineThree: request.body.headlineThree,
       sectionText: request.body.sectionText,
+      imageSmallUrl: request.body.imageSmallUrl,
+      imageBigUrl: request.body.imageBigUrl,
+      
 
   });
     dataInput.save();
@@ -64,30 +67,34 @@ fastify.post('/singleFile', async function handler (request, reply) {
   const data = await request.file()
   console.log('data', data)
   const filename = data.filename
-  const width = 300;
+  const width_300 = 300;
+  const width_700 = 700;
    
   
   // console.log('${path.resolve(./upload/)}', `${path.resolve('./upload/')}`)
   // console.log('${path.resolve(./public/upload/)}', `${path.resolve('./public/upload/')}`)
   
   await pump(data.file, fs.createWriteStream(`./public/upload/${filename}`))
-  resizeFile(filename, width)
+   const resized = resizeFile(filename, width_300, width_700)
+  console.log('resized', resized)
   //  function deleteFile(filename) {
   //   fs.unlinkSync(path.resolve(`./public/upload/${filename}`));
   // }
-   async function resizeFile(filename, width) {
-    await sharp(`./public/upload/${filename}`).resize(width).toFile(`./public/upload/resized-${filename}`);
+    async function resizeFile(filename, width_300, width_700) {
+    await sharp(`./public/upload/${filename}`).resize(width_300).toFile(`./upload/resized_300-${filename}`);
+    await sharp(`./public/upload/${filename}`).resize(width_700).toFile(`./upload/resized_700-${filename}`);
   
     // deleteFile(filename); удаляет загруженный файл, выдает ошибку
   
-    return `resized-${filename}`;
+    return `resized_300-${filename}`;
   }
-  
+ 
  
 
   // await pump(data.file, fs.createWriteStream(`./public/upload/${data.filename}`))
- return { hello: 200 }
-
+//  return { hello: 200 }
+// return resized
+reply.code(200).send({'small': `resized_300-${filename}`, 'big': `resized_700-${filename}`});
 })                
 
 try {
@@ -119,7 +126,8 @@ async function main() {
             articleText: String,
             headlineThree: String,
             sectionText: String,
-   
+            imageSmallUrl: String,
+            imageBigUrl: String,
 
 
   });

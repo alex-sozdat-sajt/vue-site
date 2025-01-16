@@ -1,5 +1,10 @@
 <template>
   <div class="card">
+    <nav>
+    <RouterLink to="/Page">Go to Page</RouterLink>
+    <hr/>
+     
+  </nav>
     <h3>форма ввода значений страницы</h3>
     <input class="input" v-model="pageName"  placeholder="Введите название страницы"/>
     <hr/>
@@ -19,11 +24,11 @@
     <label>File
         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
       </label>
-    <button v-on:click="submitFile()">Submit</button>
+    <button v-on:click="submitFile()">Загрузить фото</button>
     
    
   <hr/>
-  <button class="btn" v-on:click="sendMessege">Отправить</button>
+  <button class="btn" v-on:click="sendMessege">Отправить данные в базу</button>
   <hr/>
   <textarea 
   class="input" 
@@ -44,6 +49,9 @@ export default {
             articleText:"",
             headlineThree:"",
             sectionText:"",
+            imageSmallUrl:"",
+            imageBigUrl:"",
+            simpleText:"Просто текст"
         
         }
     },
@@ -64,6 +72,8 @@ export default {
                         articleText: this.articleText,
                         headlineThree: this.headlineThree,
                         sectionText: this.sectionText,
+                        imageSmallUrl: this.imageSmallUrl,
+                        imageBigUrl: this.imageBigUrl,
 
                     
                 })
@@ -79,25 +89,52 @@ export default {
                 
                 console.log('this.$refs.file.files[0];', this.file)
                 },
-              submitFile(){
-                        
-                        let formData = new FormData();
-                        formData.append('file', this.file);
-                        axios.post( 'http://127.0.0.1:3000/singleFile',
-                    formData,
+
+            //   submitFile(){
+                    
+            //             let formData = new FormData();
+            //             formData.append('file', this.file);
+            //             axios.post( 'http://127.0.0.1:3000/singleFile',
+            //         formData,
+            //         {
+            //             headers: {
+            //             // "Content-Type" : "application/json" , 
+            //             'Content-Type': 'multipart/form-data'
+            //             }
+            //         }
+            //         ).then(function(response){
+            //         console.log('SUCCESS!!', response.data);
+                     
+                    
+            //         })
+            //         .catch(function(error){
+            //         console.log('FAILURE!!', error);
+            //         });
+                     
+            //  }    
+                 async  submitFile(){
+                  let formData = new FormData();
+                  formData.append('file', this.file);
+                   try {
+                    const data  = await axios.post('http://127.0.0.1:3000/singleFile', 
+                    formData, 
                     {
                         headers: {
-                        // "Content-Type" : "application/json" , 
                         'Content-Type': 'multipart/form-data'
                         }
                     }
-                    ).then(function(){
-                    console.log('SUCCESS!!');
-                    })
-                    .catch(function(){
-                    console.log('FAILURE!!');
-                    });
-                        }                
+                    )
+                     this.imageSmallUrl=data.data.small
+                     this.imageBigUrl=data.data.big
+                    console.log('data', data, this.simpleText);
+                    console.log('this.imageSmallUrl', this.imageSmallUrl);
+                    console.log('imageBigUrl', this.imageBigUrl);
+                    // console.log('this.imageUrl', this.imageUrl);
+                    } catch (error) {
+                       console.error(error);
+                    }
+                },
+
 
     }
 

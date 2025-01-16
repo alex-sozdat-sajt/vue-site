@@ -1,7 +1,12 @@
 <template>
   <div class="hello">
    <h2>Добрый день</h2>
-    
+  
+   <nav>
+    <RouterLink to="/Page">Go to Page</RouterLink>
+    <hr/>
+    <RouterLink to="/Form">Go to Form</RouterLink>
+  </nav>
   </div>
 </template>
 

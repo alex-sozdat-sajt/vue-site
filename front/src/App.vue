@@ -4,8 +4,7 @@
   <HelloWorld />
 </div>
 <div class="card">
-  <Form />
-  <Page />
+  <RouterView />
 </div>
  
  
@@ -17,19 +16,22 @@
 
 
 <script>
+ 
+
 import HelloWorld from './components/HelloWorld.vue';
-import Form from './components/Form';
-import Page from './components/Page';
-import axios from 'axios';
+
+
+ 
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    Page,
-    Form
+    // Page,
+    // Form
   }
 }
+ 
 </script>
 
 <style>
