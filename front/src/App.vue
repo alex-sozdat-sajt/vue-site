@@ -1,7 +1,8 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
 <div class="card">
-  <HelloWorld />
+  <Navigation />
+  
 </div>
 <div class="card">
   <RouterView />
@@ -18,7 +19,7 @@
 <script>
  
 
-import HelloWorld from './components/HelloWorld.vue';
+import Navigation from './components/Navigation.vue';
 
 
  
@@ -26,7 +27,7 @@ import HelloWorld from './components/HelloWorld.vue';
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    Navigation,
     // Page,
     // Form
   }

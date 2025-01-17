@@ -40,6 +40,9 @@
 <script>
 import axios from 'axios';
 export default {
+    // created () {
+    //         document.title = " Form Look Ma!";
+    //     },
     data(){
         return{
             pageName:"",
@@ -55,7 +58,9 @@ export default {
         
         }
     },
+    
     methods:{
+         
         sendMessege(){
             const data = {
                 firstName: this.firstName,

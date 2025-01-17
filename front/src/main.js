@@ -4,29 +4,63 @@ import '/theme.css'
 // import router from './router'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import Form from './components/Form';
- import Page from './components/Page';
+import Page from './components/Page';
+ import UsualPage from './components/UsualPage';
+ import PageProductionTechnology from './components/PageProductionTechnology';
+ import FormProductionTechnology from './components/FormProductionTechnology';
+ 
  const routes = [
      {
-        name: 'MyCustomRoutePage',
+         name: 'MyCustomRoutePage',
          path: '/Page',
          component: Page,
-          meta: {
-            title: 'Amazing Title Page',
-            description: 'Awesome Amazing Title Page Description',
-          }
-            
-        },
+           meta: {
+             title: 'Page Amazing Title Page',
+             description: 'Awesome Amazing Title Page Description',
+                    
+        }
+    },
 
      { 
-        name: 'MyCustomRouteForm',
+         name: 'MyCustomRouteForm',
          path: '/Form',
          component: Form,
-          meta: {
-            title: 'Amazing Title Form',
-            description: 'Awesome Amazing Title Form Description',
+           meta: {
+             title: 'Form Amazing Title Form',
+             description: 'Awesome Amazing Title Form Description',
           }
         
      },
+     { 
+        name: 'MyCustomRouteUsual',
+        path: '/UsualPage',
+        component: UsualPage,
+          meta: {
+            title: 'Usual Amazing Title Usual',
+            description: 'Usual Usual Title Form Description',
+         }
+       
+    },
+    { 
+        name: 'Production Technology',
+        path: '/PageProductionTechnology',
+        component: PageProductionTechnology,
+          meta: {
+            title: 'Production Technology Amazing Title Production Technology',
+            description: 'Production Technology Production Technology Title Form Description',
+         }
+       
+    },
+    { 
+        name: 'Form Production Technology',
+        path: '/FormProductionTechnology',
+        component: FormProductionTechnology,
+          meta: {
+            title: 'FormProductionTechnology Technology Amazing Title Production Technology',
+            description: 'FormProductionTechnology Technology Production Technology Title Form Description',
+         }
+       
+    }
    ]
      const router = createRouter({
      history: createMemoryHistory(),
@@ -39,9 +73,9 @@ import Form from './components/Form';
   
     document.title = title || defaultTitle
   
-    const descriptionElement = document.querySelector('head meta[name="description"]')
-  
-    descriptionElement.setAttribute('content', description || defaultDescription)
+//     // const descriptionElement = document.querySelector('head meta[name="description"]')
+//     //если раскоментить перестает работать description не появляется
+//     // descriptionElement.setAttribute('content', description || defaultDescription)
   })
 
 

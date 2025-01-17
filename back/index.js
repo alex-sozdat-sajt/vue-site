@@ -17,7 +17,7 @@ const fastify = Fastify({
 })
 fastify.register(multipart)
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-fastify.register(staticF, { root: path.join(dirname, 'public') });
+fastify.register(staticF, { root: path.join(dirname, 'upload') });
  
 fastify.options('/form', async function handler (request, reply) {
   reply.status(200);  
@@ -35,17 +35,36 @@ fastify.post('/form', function (request, reply) {
       sectionText: request.body.sectionText,
       imageSmallUrl: request.body.imageSmallUrl,
       imageBigUrl: request.body.imageBigUrl,
-      
-
-  });
+    });
     dataInput.save();
-   
-     reply
+    reply
      .code(200)
      .header('Content-Type', 'application/json; charset=utf-8')
      .send(request.body)
-    
 })
+fastify.post('/formProductionTechnology', function (request, reply) {
+  console.log('request.body', request.body)
+  const requestBody = request.body
+  const dataInput = new PageProductionTechnologyModel({
+      pageName: request.body.pageName,
+      headlineOne: request.body.headlineOne,
+      initialText: request.body.initialText,
+      headlineTwo: request.body.headlineTwo,
+      articleText: request.body.articleText,
+      headlineThree: request.body.headlineThree,
+      sectionText: request.body.sectionText,
+      imageSmallUrl: request.body.imageSmallUrl,
+      imageBigUrl: request.body.imageBigUrl,
+    });
+    dataInput.save();
+    reply
+     .code(200)
+     .header('Content-Type', 'application/json; charset=utf-8')
+     .send(request.body)
+})
+
+
+
 fastify.get('/getpage', async function handler (request, reply) {
 
   const getpage  = await dataFromFormModel.find();
@@ -55,6 +74,16 @@ fastify.get('/getpage', async function handler (request, reply) {
       .send(getpage)
  
 }) 
+fastify.get('/getpageProductionTechnology', async function handler (request, reply) {
+
+  const getpage  = await PageProductionTechnologyModel.find();
+    reply
+      .code(200)
+      .header('Content-Type', 'application/json; charset=utf-8')
+      .send(getpage)
+ 
+}) 
+
 fastify.get('/', async function handler (request, reply) {
   
   return { hello: 'world' }
@@ -118,7 +147,7 @@ async function main() {
 }
 
 
-  const dataFromFormShema = new mongoose.Schema({
+  const PageProductionTechnologyShema = new mongoose.Schema({
             pageName: String,
             headlineOne: String,
             initialText: String,
@@ -131,6 +160,20 @@ async function main() {
 
 
   });
+  const dataFromFormShema = new mongoose.Schema({
+    pageName: String,
+    headlineOne: String,
+    initialText: String,
+    headlineTwo: String,
+    articleText: String,
+    headlineThree: String,
+    sectionText: String,
+    imageSmallUrl: String,
+    imageBigUrl: String,
+
+
+});
+  const PageProductionTechnologyModel = mongoose.model('PageProductionTechnologyModel', PageProductionTechnologyShema);
   const dataFromFormModel = mongoose.model('dataFromFormModel', dataFromFormShema);
   
 

@@ -1,11 +1,11 @@
 <template>
   <div class="hello">
-   <h2>Добрый день</h2>
-  
    <nav>
-    <RouterLink to="/Page">Go to Page</RouterLink>
+    <RouterLink to="/Page">Page</RouterLink>    <br> <RouterLink to="/Form">Form</RouterLink>  <br>
+    <RouterLink to="/UsualPage">UsualPage</RouterLink><br>
+     <RouterLink to="/PageProductionTechnology">PageProductionTechnology</RouterLink> <br>
+     <RouterLink to="/FormProductionTechnology">FormProductionTechnology</RouterLink> 
     <hr/>
-    <RouterLink to="/Form">Go to Form</RouterLink>
   </nav>
   </div>
 </template>
