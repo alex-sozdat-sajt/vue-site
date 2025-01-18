@@ -1,13 +1,24 @@
 <template>
   <hr/>
   <div class="card">
-     
+    <a v-on:click="showSingle('https://lipsum.app/id/63/1600x1200')"  >
+    <img src="https://lipsum.app/id/63/200x150" width="300" height="200" /></a>
+
+    <a v-on:click="showMultiple('https://lipsum.app/id/60/1600x1200')"  >
+      <img src="https://lipsum.app/id/60/200x150" width="300" height="200" /></a>
+
+       
+
+ 
    
    <h1>data</h1>
    <h4>{{pageName}}</h4> 
    <h1>{{headlineOne}}</h1> 
    <p>{{initialText}}</p> 
    <h2>{{headlineTwo}}</h2>
+   <a v-on:click="showSingle(`http://localhost:3000/${imageBigUrl}`)"  >
+    <img :src="`http://localhost:3000/${imageSmallUrl}`" width="300" height="250" />
+  </a>
    <img  :src="`http://localhost:3000/${imageSmallUrl}`">
    <p>{{articleText}}</p> 
    <h3>{{headlineThree}}</h3> 
@@ -16,14 +27,84 @@
    
   </div>
   <hr/>
+  <div ref="container">
+    <slot></slot>
+  </div>
+  <div>
+    <button @click="showSingle">Show single picture.</button>
+    <button @click="showMultiple">Show a group of pictures.</button>
+
+    <vue-easy-lightbox
+      :visible="visibleRef"
+      :imgs="imgsRef"
+      :index="indexRef"
+      @hide="onHide"
+    ></vue-easy-lightbox>
+  </div>
+
+   
 </template>
 
 <script>
+import VueEasyLightbox from 'vue-easy-lightbox'
+import { ref, defineComponent } from 'vue'
+ 
 import axios from 'axios';
 export default {
-  // created () {
-  //           document.title = " Page Look Ma!";
-  //       },
+  components: {
+    VueEasyLightbox
+  },
+  setup() {
+    const visibleRef = ref(false)
+    const indexRef = ref(0) // default 0
+    const imgsRef = ref([])
+    // Img Url , string or Array of string
+    // ImgObj { src: '', title: '', alt: '' }
+    // 'src' is required
+    // allow mixing
+
+    const onShow = () => {
+      visibleRef.value = true
+    }
+    const showSingle = (http) => {
+      
+       imgsRef.value = http
+      // imgsRef.value = 'https://lipsum.app/id/63/200x150'
+      // or
+      // imgsRef.value  = {
+      //   title: 'this is a placeholder',
+      //   src: 'http://via.placeholder.com/350x150'
+      // }
+      onShow()
+    }
+    const showMultiple = () => {
+      imgsRef.value = [
+        'https://lipsum.app/id/60/1600x1200',
+        'https://lipsum.app/id/61/1600x1200',
+        `https://lipsum.app/id/62/1600x1200`,
+        `https://lipsum.app/id/63/1600x1200`,
+
+      ]
+      // or
+      // imgsRef.value = [
+      //   { title: 'test img', src: 'http://via.placeholder.com/350x150' },
+      //   'http://via.placeholder.com/350x150'
+      // ]
+      indexRef.value = 0 // index of imgList
+      onShow()
+    }
+    const onHide = () => (visibleRef.value = false)
+
+    return {
+      visibleRef,
+      indexRef,
+      imgsRef,
+      showSingle,
+      showMultiple,
+      onHide
+    }
+  },
+   
 data(){
   
     return{
@@ -84,6 +165,7 @@ async created(){
 
 </script>
 
-<style>
+<style  scoped>
 
+ 
 </style>

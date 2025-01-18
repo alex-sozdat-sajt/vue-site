@@ -6,6 +6,7 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 import Form from './components/Form';
 import Page from './components/Page';
  import UsualPage from './components/UsualPage';
+ import VueEasyLightbox from 'vue-easy-lightbox'
  import PageProductionTechnology from './components/PageProductionTechnology';
  import FormProductionTechnology from './components/FormProductionTechnology';
  
@@ -82,6 +83,7 @@ import Page from './components/Page';
 
 const app = createApp(App);
 app.use(router);
+app.use(VueEasyLightbox)
 app.mount('#app');
 
 // createApp(App).mount('#app')

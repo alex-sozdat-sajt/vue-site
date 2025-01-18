@@ -126,28 +126,28 @@
                          console.error(error);
                       }
                   },
-                //   async receivePage(){
-                //         try {
+                  async receivePage(){
+                        try {
                     
-                //     const response = await axios.get('http://localhost:3000/getpageProductionTechnology');
-                //     console.log('response', response.data);
-                //     console.log('data', this.data);
-                //     this.data = response.data
+                    const response = await axios.get('http://localhost:3000/getpageProductionTechnology');
+                    console.log('response', response.data);
+                    console.log('data', this.data);
+                    this.data = response.data
                     
-                // } catch (error) {
-                //     console.error(error);
-                // }
-                // console.log('this.data', this.data[0]);
-                //     this.pageNameFDB = this.data[0].pageName;
-                //     this.pageNameFDB = this.data[0].pageName;
-                //     this.headlineOneFDB = this.data[0].headlineOne;
-                //     this.initialTextFDB = this.data[0].initialText;
-                //     this.headlineTwoFDB = this.data[0].headlineTwo;
-                //     this.articleTextFDB = this.data[0].articleText;
-                //     this.headlineThreeFDB = this.data[0].headlineThree;
-                //     this. sectionTextFDB = this.data[0].sectionText;
-                //     this. imageSmallUrlFDB = this.data[0].imageSmallUrl;
-                //     this. imageBigUrlFDB = this.data[0].imageBigUrl;
+                } catch (error) {
+                    console.error(error);
+                }
+                console.log('this.data', this.data[0]);
+                    this.pageNameFDB = this.data[0].pageName;
+                    this.pageNameFDB = this.data[0].pageName;
+                    this.headlineOneFDB = this.data[0].headlineOne;
+                    this.initialTextFDB = this.data[0].initialText;
+                    this.headlineTwoFDB = this.data[0].headlineTwo;
+                    this.articleTextFDB = this.data[0].articleText;
+                    this.headlineThreeFDB = this.data[0].headlineThree;
+                    this. sectionTextFDB = this.data[0].sectionText;
+                    this. imageSmallUrlFDB = this.data[0].imageSmallUrl;
+                    this. imageBigUrlFDB = this.data[0].imageBigUrl;
 
     
    
@@ -162,11 +162,11 @@
 
 
 
-                // },
-                // showData(){
-                //     console.log('showData', this.data);
-                //     console.log('showData', this.data[0].pageName);
-                // },         
+                },
+                showData(){
+                    console.log('showData', this.data);
+                    console.log('showData', this.data[0].pageName);
+                },         
   
   
       }
