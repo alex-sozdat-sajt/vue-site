@@ -25,6 +25,11 @@
           <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
         </label>
       <button v-on:click="submitFile()">Загрузить фото</button>
+      <hr/>
+      <label>Files  
+          <input type="file" id="files" name="files[]" multiple ref="files" v-on:change="handleFilesUpload()"/>
+        </label>
+      <button v-on:click="submitFiles()">Загрузить несколько фото</button>
       
      
     <hr/>
@@ -68,6 +73,8 @@
               sectionTextFDB:"",
               imageSmallUrlFDB:"",
               imageBigUrlFDB:"",
+              file:"",
+              files:{},
           
           }
       },
@@ -100,15 +107,59 @@
                  },
                  handleFileUpload(){
                   this.file = this.$refs.file.files[0];
-                  
-                  console.log('this.$refs.file.files[0];', this.file)
+                  console.log('this.$refs', this.$refs)
+                  console.log('this.$refs.file;', this.$refs.file)
+                  console.log('this.$refs.file.files;', this.$refs.file.files)
+                  console.log('this.$refs.file.files[0];', this.$refs.file.files[0])
+                  console.log('this.$refs.file.files[0];', this.$refs.file.files[0])
                   },
+                  handleFilesUpload(){
+                    console.log('this.$refs.file.files[0];')
+                    console.log('this.$refs', this.$refs)
+                    console.log('this.$refs.file.files;', this.$refs.file.files)
+                  console.log('this.$refs.files[1];', this.$refs.files[1])
+                  console.log('this.$refs.files.files;', this.$refs.files.files)
+                  console.log('this.$refs.files;', this.$refs.files)
+                  console.log('this.$refs.file.files;', this.$refs.file.files)
+                  this.files = this.$refs.files.files;
+                   
+                  }
+                  ,
   
                    async  submitFile(){
+                    console.log('this.file', this.file)
                     let formData = new FormData();
                     formData.append('file', this.file);
                      try {
                       const data  = await axios.post('http://127.0.0.1:3000/singleFile', 
+                      formData, 
+                      {
+                          headers: {
+                          'Content-Type': 'multipart/form-data'
+                          }
+                      }
+                      )
+                       this.imageSmallUrl=data.data.small
+                       this.imageBigUrl=data.data.big
+                      console.log('data', data, this.simpleText);
+                      console.log('this.imageSmallUrl', this.imageSmallUrl);
+                      console.log('imageBigUrl', this.imageBigUrl);
+                      // console.log('this.imageUrl', this.imageUrl);
+                      } catch (error) {
+                         console.error(error);
+                      }
+                  },
+                  async  submitFiles(){
+                    console.log('this.files', this.files)
+                    console.log('this.files.length', this.files.length)
+                    let formData = new FormData();
+                    for (let i = 0; i < this.files.length ; i++) { // выведет 0, затем 1, затем 2
+                        formData.append('file', this.files[i]);
+                        console.log('formData', formData)
+                        }
+                    // formData.append('files', this.files);
+                     try {
+                      const data  = await axios.post('http://127.0.0.1:3000/uploadFiles', 
                       formData, 
                       {
                           headers: {
