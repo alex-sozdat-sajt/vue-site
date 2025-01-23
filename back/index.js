@@ -8,7 +8,8 @@ import multipart from '@fastify/multipart';
 import util from 'util';
 import { fileURLToPath } from 'url';
 import { pipeline } from 'stream';
-import sharp from 'sharp'
+import sharp from 'sharp';
+import { uploadService } from './services/upload.js'; 
 
 const pump = util.promisify(pipeline)
 
@@ -118,7 +119,7 @@ fastify.post('/singleFile', async function handler (request, reply) {
     await sharp(`./public/upload/${filename}`).resize(width_700).toFile(`./upload/resized_700-${filename}`);
   
     // deleteFile(filename); удаляет загруженный файл, выдает ошибку
-    return `resized_300-${filename}`;
+    // return `resized_300-${filename}`;
   }
  
    // await pump(data.file, fs.createWriteStream(`./public/upload/${data.filename}`))
@@ -127,43 +128,49 @@ fastify.post('/singleFile', async function handler (request, reply) {
 reply.code(200).send({'small': `resized_300-${filename}`, 'big': `resized_700-${filename}`});
 });
 fastify.post('/uploadFiles', async function handler (request, reply) {
+
    
-  async function getResized(request){
-    const parts = request.files()
-    const width_300 = 300;
-    const width_700 = 700;
-    const arr_resized_300 = []
-    for await (const part of parts) {
-    
-      // await pump(file.file, fs.createWriteStream(path.resolve(`./public/upload/${filename}`)));
-       
-      await pump(part.file, fs.createWriteStream(`./public/upload/${part.filename}`))
-      const resized = resizeFile(part.filename, width_300, width_700)
-      async function resizeFile(filename, width_300, width_700) {
-        await sharp(`./public/upload/${filename}`).resize(width_300).toFile(`./upload/resized_300-${filename}`);
-        await sharp(`./public/upload/${filename}`).resize(width_700).toFile(`./upload/resized_700-${filename}`);
-         arr_resized_300.push(`resized_300-${filename}`)
-      console.log('arr_resized_300', arr_resized_300)
-          // deleteFile(filename); удаляет загруженный файл, выдает ошибку
-        // return `resized_300-${filename}`;
-         }
-        //  return arr_resized_300
-   }
-   return arr_resized_300
-  }
-  getResized(request).then(
-    function (arr_resized_300) {
-      // что-то делаем с результатом операции
-      console.log('Все пароли:', arr_resized_300)
-    },
-    function (err) {
-      // обрабатываем ошибку
-      console.error(err.message)
-    }
-  )
-  // await reply.code(200).send(arr_resized_300);
-   console.log('arr_resized_300_2', arr_resized_300)
+  
+
+     const uploadFiles = uploadService.uploadFiles
+     reply.code(200).send(`${uploadFiles(request)}`);
   })
+  //  const filesToUpload = async uploadFiles(parts){
+     
+  //   const width_300 = 300;
+  //   const width_700 = 700;
+  //   const arr_resized_300 = []
+  //   for await (const part of parts) {
+    
+  //     // await pump(file.file, fs.createWriteStream(path.resolve(`./public/upload/${filename}`)));
+       
+  //     await pump(part.file, fs.createWriteStream(`./public/upload/${part.filename}`))
+  //     const resized = resizeFile(part.filename, width_300, width_700)
+  //     async function resizeFile(filename, width_300, width_700) {
+  //       await sharp(`./public/upload/${filename}`).resize(width_300).toFile(`./upload/resized_300-${filename}`);
+  //       await sharp(`./public/upload/${filename}`).resize(width_700).toFile(`./upload/resized_700-${filename}`);
+  //        arr_resized_300.push(`resized_300-${filename}`)
+  //     console.log('arr_resized_300', arr_resized_300)
+  //         // deleteFile(filename); удаляет загруженный файл, выдает ошибку
+  //       // return `resized_300-${filename}`;
+  //        }
+  //       //  return arr_resized_300
+  //  }
+  //  return arr_resized_300
+  // }
+  // getResized(request).then(
+  //   function (arr_resized_300) {
+  //     // что-то делаем с результатом операции
+  //     console.log('Все пароли:', arr_resized_300)
+  //   },
+  //   function (err) {
+  //     // обрабатываем ошибку
+  //     console.error(err.message)
+  //   }
+  // )
+  // await reply.code(200).send(arr_resized_300);
+  //  console.log('arr_resized_300_2', arr_resized_300)
+  // })
  
   
   
