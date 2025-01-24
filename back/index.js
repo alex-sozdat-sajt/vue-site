@@ -127,13 +127,16 @@ fastify.post('/singleFile', async function handler (request, reply) {
 // return resized
 reply.code(200).send({'small': `resized_300-${filename}`, 'big': `resized_700-${filename}`});
 });
-fastify.post('/uploadFiles', async function handler (request, reply) {
-
+fastify.post('/uploadFiles', async function (request, reply) {
+const parts = request.files();
    
   
 
-     const uploadFiles = uploadService.uploadFiles
-     reply.code(200).send(`${uploadFiles(request)}`);
+     const uploadFiles1 = await uploadService.uploadFiles(parts)
+     console.log('uploadFiles1', uploadFiles1)
+    //  reply.code(200).send(`${uploadFiles}`);
+      reply.code(200).send(`reply uploadFiles1`, uploadFiles1);
+    // здесь почемуто reply не возвращает uploadFiles1 на фронт хотя в кансоль выводит uploadFiles1
   })
   //  const filesToUpload = async uploadFiles(parts){
      
