@@ -135,8 +135,8 @@ const parts = request.files();
      const uploadFiles1 = await uploadService.uploadFiles(parts)
      console.log('uploadFiles1', uploadFiles1)
     //  reply.code(200).send(`${uploadFiles}`);
-      reply.code(200).send(`reply uploadFiles1`, uploadFiles1);
-    // здесь почемуто reply не возвращает uploadFiles1 на фронт хотя в кансоль выводит uploadFiles1
+      reply.code(200).send(uploadFiles1);
+    
   })
   //  const filesToUpload = async uploadFiles(parts){
      
@@ -167,7 +167,7 @@ const parts = request.files();
   //     console.log('Все пароли:', arr_resized_300)
   //   },
   //   function (err) {
-  //     // обрабатываем ошибку
+  // 
   //     console.error(err.message)
   //   }
   // )
