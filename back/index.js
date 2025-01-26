@@ -11,6 +11,8 @@ import { pipeline } from 'stream';
 import sharp from 'sharp';
 import { uploadService } from './services/upload.js'; 
 
+
+
 const pump = util.promisify(pipeline)
 
 const fastify = Fastify({
@@ -127,12 +129,28 @@ fastify.post('/singleFile', async function handler (request, reply) {
 // return resized
 reply.code(200).send({'small': `resized_300-${filename}`, 'big': `resized_700-${filename}`});
 });
-fastify.post('/uploadFiles', async function (request, reply) {
+fastify.post('/uploadFiles/', async function (request, reply) {
 const parts = request.files();
-   
+// const index = request.form
+// const headers = request.headers
+  
+// console.log('request.params.index',  request.params.index)
+ console.log('request.headers.filesnum',  request.headers.filesnum)
+  
+  // let filesNum = 0;
+  let filesNum = Number(request.headers.filesNum);
+//  console.log('filesNum 0',  filesNum)
+// for await (const part of parts){
+//   filesNum = filesNum + 1
+//   console.log('indexindexindexindexindexindex', filesNum)
+
+// }
+
+// const {index} = request.body;
+// console.log('request.body index 1', index)  
   
 
-     const uploadFiles1 = await uploadService.uploadFiles(parts)
+     const uploadFiles1 = await uploadService.uploadFiles(parts, filesNum)
      console.log('uploadFiles1', uploadFiles1)
     //  reply.code(200).send(`${uploadFiles}`);
       reply.code(200).send(uploadFiles1);

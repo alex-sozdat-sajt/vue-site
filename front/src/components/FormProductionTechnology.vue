@@ -152,19 +152,26 @@
                   async  submitFiles(){
                     console.log('this.files', this.files)
                     console.log('this.files.length', this.files.length)
+                    const index =  this.files.length;
+                    console.log('index 0', index)
                     let formData = new FormData();
+                    formData.append("data", {"index": `${index}`});
                     for (let i = 0; i < this.files.length ; i++) { // выведет 0, затем 1, затем 2
                         formData.append('file', this.files[i]);
                         console.log('formData', formData)
                         }
                     // formData.append('files', this.files);
                      try {
-                      const data  = await axios.post('http://127.0.0.1:3000/uploadFiles', 
-                      formData, 
+                      const data  = await axios.post(`http://127.0.0.1:3000/uploadFiles/`, 
+                      formData,
                       {
                           headers: {
-                          'Content-Type': 'multipart/form-data'
-                          }
+                          'Content-Type': 'multipart/form-data',
+                          'filesNum': `${index}`
+                          },
+                        //   params: {
+                        //         ID: 12345
+                        //   },
                       }
                       )
                        this.imageSmallUrl=data.data.small

@@ -20,16 +20,16 @@ const pump = util.promisify(pipeline)
 
 
 export const uploadService = {
-uploadFiles: async(parts, width_300 = 300, width_700 = 700, arr_resized_300 = [])=>{
+uploadFiles: async(parts, filesNum, width_300 = 300, width_700 = 700, arr_resized_300 = [])=>{
     
     // const width_300 = 300;
     // const width_700 = 700;
     // const arr_resized_300 = ['1'];
-     let index = 0;
+      let index = 0;
     for await (const part of parts) {
       // console.log('Object.keys(parts).length', Object.keys(parts).length)
   //      for (const [index, num] of nums.entries()) {
-  // console.log(`Index: ${index}, Value: ${num}`);}
+           console.log('filesNum 0', `${filesNum}`);
        
  
        await pump(part.file, fs.createWriteStream(`./public/upload/${part.filename}`))
@@ -40,9 +40,10 @@ uploadFiles: async(parts, width_300 = 300, width_700 = 700, arr_resized_300 = []
          await sharp(`./public/upload/${part.filename}`).resize(width_700).toFile(`./upload/resized_700-${part.filename}`);
           arr_resized_300.push(`resized_300-${part.filename}`)
            console.log('arr_resized_300 1', arr_resized_300)
+            console.log('Index 0:', `${index}`);
             index = index + 1;
-         if (index === 2){
-          console.log(`Index: ${index}`);
+         if (index === filesNum){
+           console.log(`Index 1:  ${index} `, `filesNum 1:  ${filesNum}`);
            return  arr_resized_300  
         }
         
