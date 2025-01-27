@@ -167,7 +167,7 @@
                       {
                           headers: {
                           'Content-Type': 'multipart/form-data',
-                          'filesNum': `${index}`
+                          'filesnum': `${index}`
                           },
                         //   params: {
                         //         ID: 12345

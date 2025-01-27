@@ -20,7 +20,7 @@ const pump = util.promisify(pipeline)
 
 
 export const uploadService = {
-uploadFiles: async(parts, filesNum, width_300 = 300, width_700 = 700, arr_resized_300 = [])=>{
+uploadFiles: async(parts, filesNum, width_300 = 300, width_700 = 700, arr_resized_300 = [], arr_resized_700 = [])=>{
     
     // const width_300 = 300;
     // const width_700 = 700;
@@ -36,15 +36,17 @@ uploadFiles: async(parts, filesNum, width_300 = 300, width_700 = 700, arr_resize
       //  const resized = resizeFile(part.filename, width_300, width_700)
       // async function resizeFile(filename, width_300, width_700) {
         // function resizeFile(filename, width_300, width_700) {
-         await sharp(`./public/upload/${part.filename}`).resize(width_300).toFile(`./upload/resized_300-${part.filename}`);
-         await sharp(`./public/upload/${part.filename}`).resize(width_700).toFile(`./upload/resized_700-${part.filename}`);
+         await sharp(`./public/upload/${part.filename}`).resize(width_300).toFile(`./upload/resized_300/resized_300-${part.filename}`);
+         await sharp(`./public/upload/${part.filename}`).resize(width_700).toFile(`./upload/resized_700/resized_700-${part.filename}`);
           arr_resized_300.push(`resized_300-${part.filename}`)
+          arr_resized_700.push(`resized_700-${part.filename}`)
            console.log('arr_resized_300 1', arr_resized_300)
+           console.log('arr_resized_700 1', arr_resized_700)
             console.log('Index 0:', `${index}`);
             index = index + 1;
          if (index === filesNum){
            console.log(`Index 1:  ${index} `, `filesNum 1:  ${filesNum}`);
-           return  arr_resized_300  
+           return  {'arr_resized_300': arr_resized_300, 'arr_resized_700': arr_resized_700}
         }
         
 

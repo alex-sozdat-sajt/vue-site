@@ -138,8 +138,10 @@ const parts = request.files();
  console.log('request.headers.filesnum',  request.headers.filesnum)
   
   // let filesNum = 0;
-  let filesNum = Number(request.headers.filesNum);
-//  console.log('filesNum 0',  filesNum)
+  let filesNum = Number(request.headers.filesnum);
+  let filesNumStr = request.headers.filesnum;
+  console.log('filesNum 0',  filesNum)
+  console.log('filesNum filesNumStr 0',  filesNumStr)
 // for await (const part of parts){
 //   filesNum = filesNum + 1
 //   console.log('indexindexindexindexindexindex', filesNum)
