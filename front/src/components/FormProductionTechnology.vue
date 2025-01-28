@@ -39,7 +39,11 @@
     <hr/>
    
   </div>
-  <PageProductionTechnology/>
+  <PageProductionTechnology
+    :foto_300="foto_300"
+    :foto_700="foto_700"
+  
+  />
   </template>
   
      
@@ -75,6 +79,9 @@
               imageBigUrlFDB:"",
               file:"",
               files:{},
+              foto_300:{},
+              foto_700:[],
+
           
           }
       },
@@ -144,7 +151,7 @@
                       console.log('data', data, this.simpleText);
                       console.log('this.imageSmallUrl', this.imageSmallUrl);
                       console.log('imageBigUrl', this.imageBigUrl);
-                      // console.log('this.imageUrl', this.imageUrl);
+                     
                       } catch (error) {
                          console.error(error);
                       }
@@ -160,26 +167,42 @@
                         formData.append('file', this.files[i]);
                         console.log('formData', formData)
                         }
-                    // formData.append('files', this.files);
+                    
                      try {
-                      const data  = await axios.post(`http://127.0.0.1:3000/uploadFiles/`, 
+                      const response  = await axios.post(`http://127.0.0.1:3000/uploadFiles/`, 
                       formData,
                       {
                           headers: {
                           'Content-Type': 'multipart/form-data',
                           'filesnum': `${index}`
                           },
-                        //   params: {
-                        //         ID: 12345
-                        //   },
+                       
                       }
                       )
-                       this.imageSmallUrl=data.data.small
-                       this.imageBigUrl=data.data.big
-                      console.log('data', data, this.simpleText);
-                      console.log('this.imageSmallUrl', this.imageSmallUrl);
-                      console.log('imageBigUrl', this.imageBigUrl);
-                      // console.log('this.imageUrl', this.imageUrl);
+                      // .then(function (response) {
+                      //     console.log('response', response.data);
+                      //     // this.foto_300 = ['resized_700-16.jpg', 'resized_700-17.jpg']
+                         
+                      //     // console.log('this.foto_300', this.foto_300);
+                      //     // console.log('this.simpleText in then', this.simpleText);
+                      //     // this.foto_700 = response.data.arr_resized_700;
+                      //     const res = response.data.arr_resized_300
+                      //   return res 
+                      //  }).then(function(data) {
+
+                      //         // Example:
+                      //         // where 'title' is a key
+                      //         console.log('data', data)
+                      //         console.log('this.simpleText 1', this.simpleText);
+                      //         this.foto_300 = data
+                      //         console.log('this.foto_300', this.foto_300)
+                      //       })
+                      console.log('const response', response);
+                       this.foto_300 = response.data.arr_resized_300
+                       ;
+                       console.log('this.foto_300', this.foto_300);
+                      
+                      
                       } catch (error) {
                          console.error(error);
                       }
@@ -206,19 +229,6 @@
                     this. sectionTextFDB = this.data[0].sectionText;
                     this. imageSmallUrlFDB = this.data[0].imageSmallUrl;
                     this. imageBigUrlFDB = this.data[0].imageBigUrl;
-
-    
-   
-
-
-
-
-
-
-
-
-
-
 
                 },
                 showData(){

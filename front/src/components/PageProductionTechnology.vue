@@ -6,11 +6,20 @@
 
     <a v-on:click="showMultiple('https://lipsum.app/id/60/1600x1200')"  >
       <img src="https://lipsum.app/id/60/200x150" width="300" height="200" /></a>
-
-       
-
+      </div>
+      <button @click="console.log(this.foto_300)">console.log this.foto_300</button>
+      
+      <div v-for="foto of this.foto_300" :key = "foto">
+        <img :src="`http://localhost:3000/${foto.value}`" width="300" height="250" />
+      </div>
+     
+      <!-- <div v-for="(image, imageIndex) in this.foto_300">
+            <img :src="image" class="img-fluid" :key="imageIndex" />
+        </div> -->
+      
+      
  
-   
+   <div>
    <h1>data</h1>
    <h4>{{pageName}}</h4> 
    <h1>{{headlineOne}}</h1> 
@@ -24,6 +33,7 @@
    <h3>{{headlineThree}}</h3> 
    <p>{{sectionText}}</p> 
    <img  :src="`http://localhost:3000/${imageBigUrl}`">
+   <img  :src="`http://localhost:3000/upload/${imageBigUrl}`">
    
   </div>
   <hr/>
@@ -51,6 +61,10 @@ import { ref, defineComponent } from 'vue'
  
 import axios from 'axios';
 export default {
+  props: {
+    foto_300: {},
+    // foto_700: [],
+  },
   components: {
     VueEasyLightbox
   },
@@ -78,13 +92,14 @@ export default {
       onShow()
     }
     const showMultiple = () => {
-      imgsRef.value = [
-        'https://lipsum.app/id/60/1600x1200',
-        'https://lipsum.app/id/61/1600x1200',
-        `https://lipsum.app/id/62/1600x1200`,
-        `https://lipsum.app/id/63/1600x1200`,
+      // imgsRef.value = [
+      //   'https://lipsum.app/id/60/1600x1200',
+      //   'https://lipsum.app/id/61/1600x1200',
+      //   `https://lipsum.app/id/62/1600x1200`,
+      //   `https://lipsum.app/id/63/1600x1200`,
 
-      ]
+      // ]
+      imgsRef.value = this.foto_300
       // or
       // imgsRef.value = [
       //   { title: 'test img', src: 'http://via.placeholder.com/350x150' },
@@ -120,6 +135,7 @@ data(){
         text: "Заголовок",
         data: {},
         title:'',
+         
     }
 },
 methods:{
