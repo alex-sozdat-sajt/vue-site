@@ -37,6 +37,7 @@
     <hr/> <hr/>
     <button class="btn" v-on:click="receivePage">Получить данные из базы</button>
     <hr/>
+    <button @click="console.log(this.foto_300)"> console.log(this.foto_300 F) </button>
    
   </div>
   <PageProductionTechnology
@@ -79,7 +80,7 @@
               imageBigUrlFDB:"",
               file:"",
               files:{},
-              foto_300:{},
+              foto_300:[],
               foto_700:[],
 
           
@@ -179,28 +180,12 @@
                        
                       }
                       )
-                      // .then(function (response) {
-                      //     console.log('response', response.data);
-                      //     // this.foto_300 = ['resized_700-16.jpg', 'resized_700-17.jpg']
-                         
-                      //     // console.log('this.foto_300', this.foto_300);
-                      //     // console.log('this.simpleText in then', this.simpleText);
-                      //     // this.foto_700 = response.data.arr_resized_700;
-                      //     const res = response.data.arr_resized_300
-                      //   return res 
-                      //  }).then(function(data) {
-
-                      //         // Example:
-                      //         // where 'title' is a key
-                      //         console.log('data', data)
-                      //         console.log('this.simpleText 1', this.simpleText);
-                      //         this.foto_300 = data
-                      //         console.log('this.foto_300', this.foto_300)
-                      //       })
+                      
                       console.log('const response', response);
                        this.foto_300 = response.data.arr_resized_300
+                       this.foto_700 = response.data.arr_resized_700
                        ;
-                       console.log('this.foto_300', this.foto_300);
+                       console.log('this.foto_300 0', this.foto_300);
                       
                       
                       } catch (error) {

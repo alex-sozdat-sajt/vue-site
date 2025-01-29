@@ -7,15 +7,15 @@
     <a v-on:click="showMultiple('https://lipsum.app/id/60/1600x1200')"  >
       <img src="https://lipsum.app/id/60/200x150" width="300" height="200" /></a>
       </div>
-      <button @click="console.log(this.foto_300)">console.log this.foto_300</button>
-      
+      <button @click="console.log(this.foto_300)"> console.log(this.foto_300 P) </button>
+        
       <div v-for="foto of this.foto_300" :key = "foto">
-        <img :src="`http://localhost:3000/${foto.value}`" width="300" height="250" />
+        <a v-on:click="showMultiple(`http://localhost:3000/${foto}`)"  > 
+        <img :src="`http://localhost:3000/${foto}`" width="300" height="250" /></a>
+        
       </div>
      
-      <!-- <div v-for="(image, imageIndex) in this.foto_300">
-            <img :src="image" class="img-fluid" :key="imageIndex" />
-        </div> -->
+    
       
       
  
@@ -53,7 +53,7 @@
   </div>
 
    
-</template>
+</template>   
 
 <script>
 import VueEasyLightbox from 'vue-easy-lightbox'
@@ -63,15 +63,17 @@ import axios from 'axios';
 export default {
   props: {
     foto_300: {},
-    // foto_700: [],
+    foto_700: {},
   },
   components: {
     VueEasyLightbox
   },
-  setup() {
+  setup(props) {
+    const text = "просто текст"
     const visibleRef = ref(false)
     const indexRef = ref(0) // default 0
     const imgsRef = ref([])
+    
     // Img Url , string or Array of string
     // ImgObj { src: '', title: '', alt: '' }
     // 'src' is required
@@ -92,19 +94,31 @@ export default {
       onShow()
     }
     const showMultiple = () => {
-      // imgsRef.value = [
-      //   'https://lipsum.app/id/60/1600x1200',
-      //   'https://lipsum.app/id/61/1600x1200',
-      //   `https://lipsum.app/id/62/1600x1200`,
-      //   `https://lipsum.app/id/63/1600x1200`,
+     
 
-      // ]
-      imgsRef.value = this.foto_300
-      // or
-      // imgsRef.value = [
-      //   { title: 'test img', src: 'http://via.placeholder.com/350x150' },
-      //   'http://via.placeholder.com/350x150'
-      // ]
+       
+      console.log('this.text', text)
+      console.log('props.foto_300', props.foto_300)
+      console.log('this.foto_300[1]', props.foto_300[1])
+  
+      let p = ""
+      let arrFoto=[] 
+      const arrImg=['resized_300-15.jpg', 'resized_300-16.jpg']
+      console.log('arrImg 0', arrImg)
+      console.log('arrFoto 0', arrFoto)
+                  
+           
+      for (const foto of props.foto_700) {
+        console.log('foto 0', foto)
+         p = `http://localhost:3000/${foto}`
+         console.log('http://localhost:3000/${foto}', `http://localhost:3000/${foto}`)
+         arrFoto.push(p)
+        
+        }
+        console.log('arrFoto 1', arrFoto)
+        
+        imgsRef.value = arrFoto
+     
       indexRef.value = 0 // index of imgList
       onShow()
     }
