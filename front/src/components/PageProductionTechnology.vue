@@ -8,16 +8,14 @@
       <img src="https://lipsum.app/id/60/200x150" width="300" height="200" /></a>
       </div>
       <button @click="console.log(this.foto_300)"> console.log(this.foto_300 P) </button>
-        
-      <div v-for="foto of this.foto_300" :key = "foto">
+      <div class="gallery-1"> 
+      <div   v-for="foto of this.foto_300" :key = "foto">
         <a v-on:click="showMultiple(`http://localhost:3000/${foto}`)"  > 
         <img :src="`http://localhost:3000/${foto}`" width="300" height="250" /></a>
-        
       </div>
-     
-    
+      </div>
       
-      
+ 
  
    <div>
    <h1>data</h1>
@@ -196,6 +194,31 @@ async created(){
 </script>
 
 <style  scoped>
+.gallery-1 {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   gap: 20px;
+
+   width: 100%;
+	 
+	 
+	flex-direction: row;
+	
+;
+
+
+ }
+ .gallery-1 div a img{
+   flex-grow: 1;
+   flex-shrink: 1;
+   flex-basis: auto;
+   object-fit: cover; 
+   width: 100%; height: 100%; 
+   vertical-align: middle; 
+   border-radius: 5px;
+
+ }
 
  
 </style>
