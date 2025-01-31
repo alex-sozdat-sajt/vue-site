@@ -40,6 +40,9 @@
     <button @click="console.log(this.foto_300)"> console.log(this.foto_300 F) </button>
    
   </div>
+  <BlokImgLeftTextRight>
+
+  </BlokImgLeftTextRight>
   <PageProductionTechnology
     :foto_300="foto_300"
     :foto_700="foto_700"
@@ -50,10 +53,13 @@
      
   <script>
    import PageProductionTechnology from './PageProductionTechnology';
+   import BlokImgLeftTextRight from './BlokImgLeftTextRight';
+
+    
   import axios from 'axios';
   export default {
     components: {
-            PageProductionTechnology      
+            PageProductionTechnology, BlokImgLeftTextRight     
                    
             },
       data(){
