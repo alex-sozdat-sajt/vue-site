@@ -129,6 +129,34 @@ fastify.post('/singleFile', async function handler (request, reply) {
 // return resized
 reply.code(200).send({'small': `resized_300-${filename}`, 'big': `resized_700-${filename}`});
 });
+
+//BlokImgLeftTextRightFile
+
+fastify.post('/BlokImgLeftTextRightFile', async function handler (request, reply) {
+  
+   const data = await request.file()
+ 
+  const filename = data.filename
+  
+  const width_300 = 300;
+  const width_700 = 700;
+ 
+   await pump(data.file, fs.createWriteStream(`./public/upload/${filename}`))
+   const resized = resizeFile(filename, width_300, width_700)
+  console.log('resized', resized)
+  
+    async function resizeFile(filename, width_300, width_700) {
+    await sharp(`./public/upload/${filename}`).resize(width_300).toFile(`./upload/resized_300-${filename}`);
+    await sharp(`./public/upload/${filename}`).resize(width_700).toFile(`./upload/resized_700-${filename}`);
+   
+  }
+ reply.code(200).send({'small': `resized_300-${filename}`, 'big': `resized_700-${filename}`});
+  // reply.code(200).send('ok');
+
+});
+
+
+
 fastify.post('/uploadFiles/', async function (request, reply) {
 const parts = request.files();
 // const index = request.form

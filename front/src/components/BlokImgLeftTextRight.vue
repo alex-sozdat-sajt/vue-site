@@ -2,7 +2,10 @@
 <div class="img-wrap">
 <div class="item-0-4">
     <a><img src="https://lipsum.app/id/63/200x150" width="300" height="200" /></a>
-
+    <a><img src="http://localhost:3000/resized_300-8.jpg" width="300" height="200" /></a>
+    <a><img :src="`${PATH_UPLOAD}/resized_300-7.jpg`" width="300" height="200" /></a>
+    <!-- <a><img :src="require(`${process.env.VUE_APP_PATH_UPLOAD}/resized_300-7.jpg`)" width="300" height="200" /></a> -->
+   
  </div>
 <div class="item-0-6">
     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
@@ -18,7 +21,16 @@
 </template>
 
 <script>
+ const   PATH_UPLOAD = process.env.VUE_APP_PATH_UPLOAD
+console.log( ' PATH_UPLOAD', PATH_UPLOAD)
+console.log( ' PATH_UPLOAD', process.env.VUE_APP_PATH_UPLOAD)
 export default {
+    data(){
+  
+  return{
+    PATH_UPLOAD:process.env.VUE_APP_PATH_UPLOAD
+  }
+},
     methods:{
         
     }
