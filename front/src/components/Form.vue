@@ -21,10 +21,10 @@
     <textarea   class="input" v-model="sectionText" placeholder="Введите текст раздела"/>
     <hr/>
     <hr/>
-    <label>File
+    <label>File !
         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
       </label>
-    <button v-on:click="submitFile()">Загрузить фото</button>
+    <button v-on:click="submitFile()">Загрузить фото !</button>
     
    
   <hr/>
