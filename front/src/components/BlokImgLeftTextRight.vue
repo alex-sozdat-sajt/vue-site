@@ -3,8 +3,11 @@
 <div class="item-0-4">
     <a><img src="https://lipsum.app/id/63/200x150" width="300" height="200" /></a>
     <a><img src="http://localhost:3000/resized_300-8.jpg" width="300" height="200" /></a>
-    <a><img v-show="imageSmallUrl" :src="`${PATH_UPLOAD}/${imageSmallUrl}`" width="300" height="200" /></a>
-    <!-- <a><img :src="require(`${process.env.VUE_APP_PATH_UPLOAD}/resized_300-7.jpg`)" width="300" height="200" /></a> -->
+    <a><img v-show="imageSmallUrl" :src="imagePath" width="300" height="200" /></a>
+     <a><img v-show="imageSmallUrl" :src="`${PATH_UPLOAD}/${imageSmallUrl}`" width="300" height="200" /></a>
+    <!-- <a><img :src="require(`${PATH_UPLOAD}/resized_300-7.jpg`)" width="300" height="200" /></a> -->
+    <!-- <img :src="require(`${PATH_UPLOAD}/resized_300-7.jpg`)" alt="selectedImage"> -->
+    <!-- <img :src="require(`../assets/images/${selectedImage.toLowerCase()}.jpg`)" :alt="selectedImage"> -->
     <hr/>
       <label>File
           <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
@@ -37,7 +40,11 @@ export default {
     PATH_UPLOAD:process.env.VUE_APP_PATH_UPLOAD,
     imageSmallUrl:''
   }
-},
+}, computed: {
+    imagePath() {
+      return this.PATH_UPLOAD+'/'+this.imageSmallUrl;
+    }
+  },
     methods:{
         handleFileUpload(){
                   this.file = this.$refs.file.files[0];
@@ -71,7 +78,8 @@ export default {
                       }
                   },
         
-    }
+    },
+    
 
 }
 </script>

@@ -1,4 +1,11 @@
 <template>
+   <label>Files on page  
+          <input type="file" id="files" name="files[]" multiple ref="files" v-on:change="handleFilesUpload()"/>
+        </label>
+      <button v-on:click="submitFiles()">Загрузить несколько фото</button>
+      
+     
+    <hr/>
   <hr/>
   <div class="card">
     <a v-on:click="showSingle('https://lipsum.app/id/63/1600x1200')"  >
@@ -11,7 +18,13 @@
       <div class="gallery-1"> 
       <div   v-for="foto of this.foto_300" :key = "foto">
         <a v-on:click="showMultiple(`http://localhost:3000/${foto}`)"  > 
-        <img :src="`http://localhost:3000/${foto}`" width="300" height="250" /></a>
+        <img :src="`http://localhost:3000/${foto}`" width="300" height="250" />
+      </a>
+      </div>
+      <div   v-for="foto of this.foto_300p" :key = "foto">
+        <!-- <a v-on:click="showMultiple(`http://localhost:3000/${foto}`)"  >  -->
+        <img :src="`http://localhost:3000/${foto}`" width="300" height="250" />
+      <!-- </a> -->
       </div>
       </div>
       
@@ -96,8 +109,8 @@ export default {
 
        
       console.log('this.text', text)
-      console.log('props.foto_300', props.foto_300)
-      console.log('this.foto_300[1]', props.foto_300[1])
+      // console.log('props.foto_300', props.foto_300)
+      // console.log('this.foto_300[1]', props.foto_300[1])
   
       let p = ""
       let arrFoto=[] 
@@ -106,7 +119,9 @@ export default {
       console.log('arrFoto 0', arrFoto)
                   
            
-      for (const foto of props.foto_700) {
+       for (const foto of props.foto_700) {
+      //  for (const foto of this.foto_700) {
+      
         console.log('foto 0', foto)
          p = `http://localhost:3000/${foto}`
          console.log('http://localhost:3000/${foto}', `http://localhost:3000/${foto}`)
@@ -147,10 +162,63 @@ data(){
         text: "Заголовок",
         data: {},
         title:'',
+        foto_300p: {},
+        foto_700p: {},
+        files:{},
+
+
          
     }
 },
 methods:{
+  handleFilesUpload(){
+                    console.log('this.$refs.file.files[0];')
+                    console.log('this.$refs', this.$refs)
+                    // console.log('this.$refs.file.files;', this.$refs.file.files)
+                  console.log('this.$refs.files[1];', this.$refs.files[1])
+                  console.log('this.$refs.files;', this.$refs.files)
+                  console.log('this.$refs.files.files;', this.$refs.files.files)
+                  console.log('this.$refs.files;', this.$refs.files)
+                  
+                  this.files = this.$refs.files.files;
+                   
+                  }
+                  ,
+                 async  submitFiles(){
+                    console.log('this.files', this.files)
+                    console.log('this.files.length', this.files.length)
+                    const index =  this.files.length;
+                    console.log('index 0', index)
+                    let formData = new FormData();
+                    formData.append("data", {"index": `${index}`});
+                    for (let i = 0; i < this.files.length ; i++) { // выведет 0, затем 1, затем 2
+                        formData.append('file', this.files[i]);
+                        console.log('formData', formData)
+                        }
+                    
+                     try {
+                      const response  = await axios.post(`http://127.0.0.1:3000/uploadFiles/`, 
+                      formData,
+                      {
+                          headers: {
+                          'Content-Type': 'multipart/form-data',
+                          'filesnum': `${index}`
+                          },
+                       
+                      }
+                      )
+                      
+                      console.log('const response', response);
+                       this.foto_300p = response.data.arr_resized_300
+                       this.foto_700p = response.data.arr_resized_700
+                       ;
+                       console.log('this.foto_300p 0', this.foto_300p);
+                      
+                      
+                      } catch (error) {
+                         console.error(error);
+                      }
+                  },
     async receivePage(){
         try {
     

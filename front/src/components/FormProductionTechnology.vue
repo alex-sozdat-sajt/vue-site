@@ -130,11 +130,11 @@
                   handleFilesUpload(){
                     console.log('this.$refs.file.files[0];')
                     console.log('this.$refs', this.$refs)
-                    console.log('this.$refs.file.files;', this.$refs.file.files)
-                  console.log('this.$refs.files[1];', this.$refs.files[1])
+                     
+                    console.log('this.$refs.files;', this.$refs.files)
                   console.log('this.$refs.files.files;', this.$refs.files.files)
-                  console.log('this.$refs.files;', this.$refs.files)
-                  console.log('this.$refs.file.files;', this.$refs.file.files)
+                 
+                  
                   this.files = this.$refs.files.files;
                    
                   }
