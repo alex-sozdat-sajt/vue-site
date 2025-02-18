@@ -1,43 +1,35 @@
 <template>
 <div class="img-wrap">
-  <div>
-    <h2> {{ h2_message }}</h2>   
-    <input v-show="changeTitle" class="input" v-model="title_h2"  placeholder="Введите Заголовок раздела"/>
-    <button v-on:click="changeTitleM">Изменить заголовок</button>
-    <button v-show="changeTitle"  v-on:click="saveTitleM">Сохранить заголовок</button>
-     <button v-on:click="changeTextM">Изменить текст</button>
-      <button v-show="changeText"  v-on:click="saveTextM">Сохранить текст</button>
-  </div>
-<div class="item-0-4">
+ 
+<div class="item-0-6">
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+<p>Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when </p>
+</div>
+<h2> Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when</h2>
+ <p>Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when </p>
+    <p>Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when </p>
     
-    <div   v-for="foto of this.foto_300p" :key = "foto">
-        <!-- <a v-on:click="showMultiple(`http://localhost:3000/${foto}`)"  >  -->
-        <img :src="`http://localhost:3000/${foto}`" width="300" height="250" />
-      <!-- </a> -->
-      </div>
+ <p>Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when </p>
+ 
+</div>
+<div class="item-0-4">
       
       <hr/>
-      <label>Files on page  
-          <input type="file" id="files" name="files[]" multiple ref="files" v-on:change="handleFilesUpload(), submitFiles()"/>
-        </label>
-      <button v-on:click="submitFiles()">Загрузить несколько фото</button>
-      
-     
-    <hr/>
- </div>
- <div v-show="changeText" class="item-0-6">
-    
-  <Textarea v-model="textarea_value" rows="5" cols="30" />
-
-    
-</div>
-<div  v-show="!changeText" class="item-0-6">
-    
-    <p>{{ text_message }}</p>
-    
-</div>
-  
-</div>
+      <div   v-for="foto of this.foto_300p" :key = "foto">
+          <!-- <a v-on:click="showMultiple(`http://localhost:3000/${foto}`)"  >  -->
+          <img :src="`http://localhost:3000/${foto}`" width="300" height="250" />
+        <!-- </a> -->
+        </div>
+        
+        <hr/>
+        <label>Files on page  
+            <input type="file" id="files" name="files[]" multiple ref="files" v-on:change="handleFilesUpload()"/>
+          </label>
+        <button v-on:click="submitFiles()">Загрузить несколько фото</button>
+        
+       
+      <hr/>
+   </div>
 </template>
 
 <script>
@@ -54,38 +46,14 @@ export default {
     foto_300p: {},
         foto_700p: {},
         files:{},
-        changeTitle: false,
-        title_h2: '',
-        h2_message: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-        text_message: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-        changeText: false,
-        textarea_value: '',
-      }
-
+  }
 }, computed: {
     imagePath() {
       return this.PATH_UPLOAD+'/'+this.imageSmallUrl;
     }
   },
     methods:{
-      
-      changeTextM(){
-         this.changeText=true
-        
-      },
-      changeTitleM(){
-         this.changeTitle=true
-        console.log('changeTitle')
-      },
-      saveTextM(){
-        this.text_message = this.textarea_value;
-        this.changeText=false
-      },
-      saveTitleM(){
-        this.h2_message =  this.title_h2;
-        this.changeTitle=false
-        console.log('this.title_h2.value', this.title_h2)
-      },
+          
                   handleFilesUpload(){
                     console.log('this.$refs.file.files[0];')
                     console.log('this.$refs', this.$refs)
@@ -96,7 +64,7 @@ export default {
                   console.log('this.$refs.files;', this.$refs.files)
                   
                   this.files = this.$refs.files.files;
-                   this.submitFiles()
+                   
                   }
                   ,
                  async  submitFiles(){

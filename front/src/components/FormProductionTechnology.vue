@@ -43,6 +43,7 @@
   <BlokImgLeftTextRight>
 
   </BlokImgLeftTextRight>
+ 
   <PageProductionTechnology
     :foto_300="foto_300"
     :foto_700="foto_700"
@@ -54,12 +55,13 @@
   <script>
    import PageProductionTechnology from './PageProductionTechnology';
    import BlokImgLeftTextRight from './BlokImgLeftTextRight';
+   
 
     
   import axios from 'axios';
   export default {
     components: {
-            PageProductionTechnology, BlokImgLeftTextRight     
+            PageProductionTechnology, BlokImgLeftTextRight, 
                    
             },
       data(){
